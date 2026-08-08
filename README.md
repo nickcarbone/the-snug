@@ -30,13 +30,21 @@ Four ways, in order of how well they work:
 |---|---|---|---|
 | **File** | Choose or drag a `.txt` / `.epub` | yes | no |
 | **Paste** | Paste any text | yes | no |
-| **Search** | Search Gutenberg's catalogue by title or author | no | no |
+| **Search** | Search the catalogue, tap to download the EPUB, add via File | no | no |
 | **Link** | Paste a book URL | no | yes — see below |
 
 **Search** uses [Gutendex](https://gutendex.com), a community JSON API for
 Gutenberg's catalogue. It sends `Access-Control-Allow-Origin: *`, so searching
-works from your site with no setup. Opening a result still downloads the text
-from gutenberg.org, which is where the relay comes in.
+works with no setup. Reading the book is the part that's blocked.
+
+Without a relay, tapping a result downloads the EPUB and you add it from the
+**File** tab — two taps instead of one. The Snug asks for Gutenberg's text-only
+EPUB rather than the illustrated one Gutendex advertises: for *Pride and
+Prejudice* that's 558 KB instead of 24.8 MB, the same book. EPUBs also carry a
+real table of contents, so chapters come from the file rather than from the
+heuristics described below.
+
+With a relay, results open straight into the reader.
 
 ### Why Link needs a relay
 
@@ -66,7 +74,15 @@ It's restricted to an allow-list of book hosts and to your own site, so it
 can't be used as an open proxy by anyone else. It caches at Cloudflare's edge,
 so a book is only pulled from Gutenberg once.
 
-**You never need this.** File and Paste cover everything and always will.
+**You never need this.** Search-then-File, Paste, and dragging in a file all
+work without it. The relay only removes one tap.
+
+Two things I checked so you don't have to. Gutenberg serves `.txt` as
+`text/plain`, which browsers *render* in a tab rather than saving — that's why
+the download path uses the EPUB instead. And the Internet Archive does mirror
+Gutenberg with `Access-Control-Allow-Origin: *`, but its item identifiers are
+unguessable, each item holds several differently-named text files, and the
+copies are 1998-era transcriptions, so it isn't usable as an automatic source.
 
 ---
 

@@ -129,6 +129,16 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 .btn.ghost:hover{background:var(--hair);color:var(--ink)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
 .hint{margin-top:12px;font-size:12px;line-height:1.6;color:var(--ink-soft)}
+.notice{
+  margin-top:16px;border:1px solid var(--hair);border-left:3px solid var(--accent);
+  background:var(--accent-soft);border-radius:3px;padding:13px 15px;
+}
+.notice p{margin:0;font-size:12.5px;line-height:1.65;color:var(--ink)}
+.notice p+p{margin-top:8px}
+.notice .row{margin-top:11px}
+.res-dl{margin-left:auto;align-self:center;color:var(--accent);flex:none;padding-left:8px}
+.res-dl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
 .hint code{font-family:var(--mono);font-size:11.5px;background:var(--accent-soft);padding:1px 5px;border-radius:2px}
 
 .drop{
@@ -145,9 +155,13 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 }
 .res:hover{background:var(--accent-soft)}
 .res img{width:40px;height:60px;object-fit:cover;background:var(--hair);border-radius:1px;flex:none}
-.res-t{font-family:var(--face);font-size:16px;line-height:1.25;margin-bottom:3px}
-.res-a{font-size:12.5px;color:var(--ink-soft)}
-.res-m{margin-top:5px;color:var(--ink-soft);font-size:9.5px}
+.res>span{display:flex;flex-direction:column;gap:3px;min-width:0}
+.res-t{display:block;font-family:var(--face);font-size:16px;line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical}
+.res-a{display:block;font-size:12.5px;color:var(--ink-soft);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-m{display:block;margin-top:2px;color:var(--ink-soft);font-size:9.5px}
 
 /* library grid */
 .lib{max-width:1080px;margin:0 auto;padding:38px 24px 0;width:100%}
@@ -386,7 +400,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
           <p class="mono" style="margin:12px 0 0">Choose a file or drop it here</p>
           <p class="hint" style="margin-top:6px">.txt and .epub</p>
         </div>
-        <input type="file" id="file" accept=".txt,.text,.epub,text/plain,application/epub+zip" hidden>
+        <input type="file" id="file" accept=".txt,.text,.epub,.noimages,text/plain,application/epub+zip" hidden>
       </div>
 
       <div class="tabpane" id="p-paste">
@@ -1179,10 +1193,15 @@ async function search(q){
     if(!r.ok) throw new Error('The catalogue returned '+r.status+'.');
     const d = await r.json();
     if(!d.results.length){ box.innerHTML=`<p class="hint">Nothing matched “${esc(q)}”. Try an author's surname.</p>`; return; }
+    const relayed = !!proxy();
     box.innerHTML = d.results.slice(0,14).map(b=>{
       const txt = b.formats['text/plain; charset=utf-8'] || b.formats['text/plain'] ||
                   `https://www.gutenberg.org/cache/epub/${b.id}/pg${b.id}.txt`;
-      const epub= b.formats['application/epub+zip']||'';
+      /* Gutendex advertises the illustrated EPUB (24 MB for P&P). The
+         text-only build is the same book at 1/44th the size. */
+      const epubRaw = b.formats['application/epub+zip']||'';
+      const epub = epubRaw.replace(/\.epub3?\.images$/,'.epub.noimages')
+                || (b.id ? 'https://www.gutenberg.org/ebooks/'+b.id+'.epub.noimages' : '');
       const cov = b.formats['image/jpeg']||'';
       const au  = (b.authors[0]&&b.authors[0].name)||'Unknown';
       return `<button class="res" data-txt="${esc(txt)}" data-epub="${esc(epub)}"
@@ -1191,9 +1210,19 @@ async function search(q){
           <span style="min-width:0">
             <span class="res-t">${esc(b.title)}</span>
             <span class="res-a">${esc(au)}</span>
-            <span class="res-m mono">#${b.id} · ${b.download_count.toLocaleString()} downloads</span>
-          </span></button>`;
-    }).join('');
+            <span class="res-m mono">#${b.id} · ${relayed?'opens here':(epub?'downloads the epub':'opens the raw file')}</span>
+          </span>
+          ${relayed?'':`<span class="res-dl"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg></span>`}
+          </button>`;
+    }).join('') + (relayed ? '' : `
+      <div class="notice">
+        <p><strong>Two taps without a relay.</strong> Gutenberg lets The Snug search its
+        catalogue but not read its files, so tap a result to download the EPUB, then add it
+        from the <strong>File</strong> tab. EPUBs carry real chapter marks, so they read
+        better than the plain text anyway.</p>
+        <p>Set up a relay once and results open straight into the reader instead.</p>
+        <div class="row"><button class="btn mono" id="notice-relay">Set up a relay</button></div>
+      </div>`);
   }catch(err){
     box.innerHTML=`<p class="hint">Search failed: ${esc(err.message)} Check your connection and try again.</p>`;
   }
@@ -1213,9 +1242,9 @@ async function fetchBook(url,meta={}){
     busy(false); openBook(rec.id);
   }catch(err){
     busy(false);
-    const p = proxy();
-    toast(p ? 'Fetch failed: '+err.message
-            : 'A link needs a relay first — Gutenberg blocks direct browser reads. Use File or Paste instead.', 5200);
+    toast(proxy()
+      ? 'The relay could not fetch that: '+err.message
+      : 'Gutenberg blocks direct reads. Download the file and add it from the File tab.', 5200);
   }
 }
 
@@ -1224,11 +1253,15 @@ async function fetchBook(url,meta={}){
    ═══════════════════════════════════════════════════════════════ */
 async function takeFile(file){
   if(!file) return;
-  const isEpub=/\.epub$/i.test(file.name)||file.type==='application/epub+zip';
   busy(true,'Reading the file');
   try{
+    /* Sniff the zip signature rather than trusting the extension: files
+       downloaded from Gutenberg don't always keep a .epub suffix. */
+    const head = new Uint8Array(await file.slice(0,4).arrayBuffer());
+    const isEpub = (head[0]===0x50 && head[1]===0x4B && head[2]===0x03 && head[3]===0x04)
+                || /\.epub$/i.test(file.name) || file.type==='application/epub+zip';
     const raw = isEpub ? await file.arrayBuffer() : await file.text();
-    let title=file.name.replace(/\.(txt|text|epub)$/i,'').replace(/[-_]+/g,' '), author='';
+    let title=file.name.replace(/\.(txt|text|epub)(\.\w+)?$/i,'').replace(/[-_]+/g,' '), author='';
     if(isEpub){ const p=await parseEpub(raw); title=p.meta.title||title; author=p.meta.author||''; }
     else { const m=readHeader(normalise(raw)); if(m.title) title=m.title; author=m.author; }
     const rec = await addBook({title,author,raw,kind:isEpub?'epub':'txt',source:file.name});
@@ -1253,8 +1286,24 @@ function init(){
   $('#go-find').addEventListener('click',()=>{ const q=$('#q').value.trim(); if(q) search(q); });
   $('#q').addEventListener('keydown',e=>{ if(e.key==='Enter'){ const q=e.target.value.trim(); if(q) search(q);} });
   $('#results').addEventListener('click',e=>{
+    if(e.target.closest('#notice-relay')) return $('#set-proxy').click();
     const b=e.target.closest('.res'); if(!b) return;
-    fetchBook(b.dataset.txt,{title:b.dataset.t,author:b.dataset.a,cover:b.dataset.cov});
+    if(proxy()){
+      fetchBook(b.dataset.txt,{title:b.dataset.t,author:b.dataset.a,cover:b.dataset.cov});
+    } else {
+      /* No relay: hand the file to the browser, which isn't bound by CORS.
+         Prefer the EPUB — Gutenberg serves .txt as text/plain, which browsers
+         render in a tab instead of saving, whereas application/epub+zip
+         downloads properly. */
+      const url = b.dataset.epub || b.dataset.txt;
+      const a=document.createElement('a');
+      a.href=url; a.rel='noopener';
+      if(!b.dataset.epub) a.target='_blank';
+      document.body.appendChild(a); a.click(); a.remove();
+      toast(b.dataset.epub
+        ? 'Downloading \u201c'+b.dataset.t+'\u201d \u2014 add it from the File tab.'
+        : 'Opened the raw file \u2014 save it, then add it from the File tab.', 5600);
+    }
   });
 
   // file
