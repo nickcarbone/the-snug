@@ -24,7 +24,7 @@ That's the whole install. The relay below is optional.
 
 ## Getting books in
 
-Four ways, in order of how well they work:
+Five ways, in order of how well they work:
 
 | | How | Works offline | Needs setup |
 |---|---|---|---|
@@ -32,6 +32,7 @@ Four ways, in order of how well they work:
 | **Paste** | Paste any text | yes | no |
 | **Search** | Search the catalogue, tap to download the EPUB, add via File | no | no |
 | **Link** | Paste a book URL | no | yes — see below |
+| **Import** | Load a whole reading list from a `.json` file | no | yes — see below |
 
 **Search** uses [Gutendex](https://gutendex.com), a community JSON API for
 Gutenberg's catalogue. It sends `Access-Control-Allow-Origin: *`, so searching
@@ -45,6 +46,80 @@ real table of contents, so chapters come from the file rather than from the
 heuristics described below.
 
 With a relay, results open straight into the reader.
+
+---
+
+## Shelves
+
+A book can sit on any number of shelves. A shelf is only a label that at least
+one book carries, so there is nothing to create and nothing to delete: name one
+and it appears, take the last book off it and it goes.
+
+The row of shelf names sits above the grid. Tap one to see only those books, tap
+**All** to come back. Hover a book (or focus it) and the **#** button lets you
+type its shelves as a comma-separated list. Your choice of shelf is remembered
+between visits.
+
+---
+
+## Import and export
+
+**Import** takes a `.json` file listing books and where their texts can be had,
+and puts them all on a shelf at once. Nothing is downloaded at import time — a
+book is fetched the first time you open it — so a fifty-book library is a few
+kilobytes. Use the **Import** button above the grid, or drag the `.json` onto
+the page.
+
+Books that haven't been fetched yet show a dashed cover and a small label.
+Tapping one fetches it through your relay; without a relay it downloads instead,
+and you add it from the **File** tab as usual.
+
+Re-importing the same list does not duplicate anything. A book you already have
+keeps its reading position and simply joins the new shelf.
+
+**Export** writes the current shelf back out in the same format, so a library
+can be moved between devices or kept in version control.
+
+### The file format
+
+```json
+{
+  "snugLibrary": 1,
+  "name": "Telegraph 50 Best",
+  "books": [
+    {
+      "rank": 21,
+      "title": "Persuasion",
+      "author": "Jane Austen",
+      "year": "1817",
+      "tags": ["Telegraph 50 Best"],
+      "kind": "epub",
+      "status": "public-domain",
+      "fetch":  "https://standardebooks.org/ebooks/jane-austen/persuasion/downloads/jane-austen_persuasion.epub",
+      "source": "https://standardebooks.org/ebooks/jane-austen/persuasion",
+      "cover":  "https://standardebooks.org/ebooks/jane-austen/persuasion/downloads/cover.jpg",
+      "note":   "Anything worth knowing about this edition."
+    }
+  ]
+}
+```
+
+Only `title` is required. `tags` falls back to `name`, and `name` falls back to
+the filename. `fetch` is the file itself; `source` is the human-readable page it
+came from. `rank` sets the order of books you haven't opened yet — without it
+they fall in file order.
+
+`status` is a note to the reader, and decides what tapping the book does:
+
+| `status` | Meaning | Tapping it |
+|---|---|---|
+| `public-domain` | Out of copyright | Fetches and opens the text |
+| `lending` | In copyright, free to borrow | Opens the library record — these can't be downloaded |
+| `in-copyright` | No legitimate free copy | Opens `source` if there is one, otherwise says so |
+
+`snug-library-telegraph-50.json` in this folder is a worked example: the 50
+books in *The Daily Telegraph*'s "50 greatest books of all time" (Jake Kerridge,
+9 August 2026), with a verified source for each of the 46 that have one.
 
 ### Why Link needs a relay
 
@@ -150,8 +225,8 @@ text stays dependency-free.
 
 ## Storage and privacy
 
-Books go in IndexedDB, settings and reading positions in localStorage, both on
-your device. Nothing is uploaded. There is no server, no analytics, no account.
+Books go in IndexedDB, settings, shelves and reading positions in localStorage,
+both on your device. Nothing is uploaded. There is no server, no analytics, no account.
 
 If storage is unavailable — private browsing, or opening the file directly via
 `file://` — it falls back to memory and still works for the session. Serve it

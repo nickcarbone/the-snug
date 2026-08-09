@@ -1,0 +1,694 @@
+{
+  "snugLibrary": 1,
+  "name": "Telegraph 50 Best",
+  "description": "The 50 greatest books of all time, chosen by Jake Kerridge, The Daily Telegraph, 9 August 2026. Each entry records where a legitimate free copy can be had, if one can.",
+  "generated": "2026-08-09",
+  "statusKey": {
+    "public-domain": "Out of copyright. Opens in The Snug (a relay is needed for the fetch).",
+    "lending": "In copyright. Free to borrow from the Internet Archive's lending library, but not downloadable — opening the card opens the record.",
+    "in-copyright": "In copyright with no legitimate free copy located."
+  },
+  "books": [
+    {
+      "rank": 1,
+      "title": "The Iliad",
+      "author": "Homer",
+      "year": "c8th century BC",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/homer/the-iliad/william-cullen-bryant/downloads/homer_the-iliad_william-cullen-bryant.epub",
+      "source": "https://standardebooks.org/ebooks/homer/the-iliad/william-cullen-bryant",
+      "cover": "https://standardebooks.org/ebooks/homer/the-iliad/william-cullen-bryant/downloads/cover.jpg",
+      "note": "Bryant's blank-verse translation. Butler's prose version is Gutenberg #2199."
+    },
+    {
+      "rank": 2,
+      "title": "The Last Days of Socrates",
+      "author": "Plato",
+      "year": "399 BC",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/plato/dialogues/benjamin-jowett/downloads/plato_dialogues_benjamin-jowett.epub",
+      "source": "https://standardebooks.org/ebooks/plato/dialogues/benjamin-jowett",
+      "cover": "https://standardebooks.org/ebooks/plato/dialogues/benjamin-jowett/downloads/cover.jpg",
+      "note": "Jowett's complete Dialogues; the four Socrates dialogues (Euthyphro, Apology, Crito, Phaedo) sit inside it. Gutenberg #13726 has Apology, Crito and Phaedo alone."
+    },
+    {
+      "rank": 3,
+      "title": "Metamorphoses",
+      "author": "Ovid",
+      "year": "AD c8",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/28621.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/28621",
+      "cover": "https://www.gutenberg.org/cache/epub/28621/pg28621.cover.medium.jpg",
+      "note": "Howard's blank verse, all fifteen books in one file. Riley's prose is split across Gutenberg #21765 and #26073."
+    },
+    {
+      "rank": 4,
+      "title": "The Arabian Nights",
+      "author": "Various authors",
+      "year": "c8th–9th centuries",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/128.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/128",
+      "cover": "https://www.gutenberg.org/cache/epub/128/pg128.cover.medium.jpg",
+      "note": "Andrew Lang's selection. Burton's unabridged ten volumes begin at Gutenberg #3435."
+    },
+    {
+      "rank": 5,
+      "title": "The Pillow Book of Sei Shōnagon",
+      "author": "Sei Shōnagon",
+      "year": "1002",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/76016.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/76016",
+      "cover": "https://www.gutenberg.org/cache/epub/76016/pg76016.cover.medium.jpg",
+      "note": "Arthur Waley's translation, out of US copyright since 2024."
+    },
+    {
+      "rank": 6,
+      "title": "The Divine Comedy",
+      "author": "Dante Alighieri",
+      "year": "1308–21",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/dante-alighieri/the-divine-comedy/henry-wadsworth-longfellow/downloads/dante-alighieri_the-divine-comedy_henry-wadsworth-longfellow.epub",
+      "source": "https://standardebooks.org/ebooks/dante-alighieri/the-divine-comedy/henry-wadsworth-longfellow",
+      "cover": "https://standardebooks.org/ebooks/dante-alighieri/the-divine-comedy/henry-wadsworth-longfellow/downloads/cover.jpg",
+      "note": "Longfellow's translation, all three canticles."
+    },
+    {
+      "rank": 7,
+      "title": "The Canterbury Tales",
+      "author": "Geoffrey Chaucer",
+      "year": "1387–1400",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/geoffrey-chaucer/the-canterbury-tales/downloads/geoffrey-chaucer_the-canterbury-tales.epub",
+      "source": "https://standardebooks.org/ebooks/geoffrey-chaucer/the-canterbury-tales",
+      "cover": "https://standardebooks.org/ebooks/geoffrey-chaucer/the-canterbury-tales/downloads/cover.jpg",
+      "note": "Middle English."
+    },
+    {
+      "rank": 8,
+      "title": "Gargantua and Pantagruel",
+      "author": "François Rabelais",
+      "year": "1532–64",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/1200.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/1200",
+      "cover": "https://www.gutenberg.org/cache/epub/1200/pg1200.cover.medium.jpg",
+      "note": "Urquhart and Motteux. Standard Ebooks has no edition yet."
+    },
+    {
+      "rank": 9,
+      "title": "Essays",
+      "author": "Michel de Montaigne",
+      "year": "1570–92",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/3600.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/3600",
+      "cover": "https://www.gutenberg.org/cache/epub/3600/pg3600.cover.medium.jpg",
+      "note": "Cotton's translation, complete in one file — the nineteen separate volumes are #3581–3599."
+    },
+    {
+      "rank": 10,
+      "title": "Monkey: Journey to the West",
+      "author": "Wu Cheng'en",
+      "year": "1592",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/monkeyfolknovelo0000unse",
+      "cover": "https://archive.org/services/img/monkeyfolknovelo0000unse",
+      "note": "Waley's English abridgement is borrowable but not downloadable. The Chinese original, 西遊記, is Gutenberg #23962."
+    },
+    {
+      "rank": 11,
+      "title": "Don Quixote",
+      "author": "Miguel de Cervantes",
+      "year": "1605–15",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/miguel-de-cervantes-saavedra/don-quixote/john-ormsby/downloads/miguel-de-cervantes-saavedra_don-quixote_john-ormsby.epub",
+      "source": "https://standardebooks.org/ebooks/miguel-de-cervantes-saavedra/don-quixote/john-ormsby",
+      "cover": "https://standardebooks.org/ebooks/miguel-de-cervantes-saavedra/don-quixote/john-ormsby/downloads/cover.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "The Anatomy of Melancholy",
+      "author": "Robert Burton",
+      "year": "1621",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/10800.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/10800",
+      "cover": "https://www.gutenberg.org/cache/epub/10800/pg10800.cover.medium.jpg",
+      "note": "Standard Ebooks lists this as forthcoming; the page is a placeholder."
+    },
+    {
+      "rank": 13,
+      "title": "The Diary of Samuel Pepys",
+      "author": "Samuel Pepys",
+      "year": "1660–69",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/4200.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/4200",
+      "cover": "https://www.gutenberg.org/cache/epub/4200/pg4200.cover.medium.jpg",
+      "note": "Braybrooke's edition, complete. Large file — expect a pause on first open."
+    },
+    {
+      "rank": 14,
+      "title": "Paradise Lost",
+      "author": "John Milton",
+      "year": "1667",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/john-milton/paradise-lost/downloads/john-milton_paradise-lost.epub",
+      "source": "https://standardebooks.org/ebooks/john-milton/paradise-lost",
+      "cover": "https://standardebooks.org/ebooks/john-milton/paradise-lost/downloads/cover.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "The Pilgrim's Progress",
+      "author": "John Bunyan",
+      "year": "1678",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/john-bunyan/the-pilgrims-progress/downloads/john-bunyan_the-pilgrims-progress.epub",
+      "source": "https://standardebooks.org/ebooks/john-bunyan/the-pilgrims-progress",
+      "cover": "https://standardebooks.org/ebooks/john-bunyan/the-pilgrims-progress/downloads/cover.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Brief Lives",
+      "author": "John Aubrey",
+      "year": "c1690s",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://www.gutenberg.org/ebooks/47787.epub.noimages",
+      "source": "https://www.gutenberg.org/ebooks/47787",
+      "cover": "https://www.gutenberg.org/cache/epub/47787/pg47787.cover.medium.jpg",
+      "note": "Andrew Clark's edition, Volume 1 of 2. Volume 2 is Gutenberg #47791."
+    },
+    {
+      "rank": 17,
+      "title": "Gulliver's Travels",
+      "author": "Jonathan Swift",
+      "year": "1726",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/jonathan-swift/gullivers-travels/downloads/jonathan-swift_gullivers-travels.epub",
+      "source": "https://standardebooks.org/ebooks/jonathan-swift/gullivers-travels",
+      "cover": "https://standardebooks.org/ebooks/jonathan-swift/gullivers-travels/downloads/cover.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "The Life and Opinions of Tristram Shandy, Gentleman",
+      "author": "Laurence Sterne",
+      "year": "1759–67",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/laurence-sterne/the-life-and-opinions-of-tristram-shandy-gentleman/downloads/laurence-sterne_the-life-and-opinions-of-tristram-shandy-gentleman.epub",
+      "source": "https://standardebooks.org/ebooks/laurence-sterne/the-life-and-opinions-of-tristram-shandy-gentleman",
+      "cover": "https://standardebooks.org/ebooks/laurence-sterne/the-life-and-opinions-of-tristram-shandy-gentleman/downloads/cover.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "The History of the Decline and Fall of the Roman Empire",
+      "author": "Edward Gibbon",
+      "year": "1776–88",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/edward-gibbon/the-history-of-the-decline-and-fall-of-the-roman-empire/downloads/edward-gibbon_the-history-of-the-decline-and-fall-of-the-roman-empire.epub",
+      "source": "https://standardebooks.org/ebooks/edward-gibbon/the-history-of-the-decline-and-fall-of-the-roman-empire",
+      "cover": "https://standardebooks.org/ebooks/edward-gibbon/the-history-of-the-decline-and-fall-of-the-roman-empire/downloads/cover.jpg",
+      "note": "All six volumes in one file. Gutenberg splits them across #731–736."
+    },
+    {
+      "rank": 20,
+      "title": "The Interesting Narrative of the Life of Olaudah Equiano",
+      "author": "Olaudah Equiano",
+      "year": "1789",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/olaudah-equiano/the-interesting-narrative-of-the-life-of-olaudah-equiano/downloads/olaudah-equiano_the-interesting-narrative-of-the-life-of-olaudah-equiano.epub",
+      "source": "https://standardebooks.org/ebooks/olaudah-equiano/the-interesting-narrative-of-the-life-of-olaudah-equiano",
+      "cover": "https://standardebooks.org/ebooks/olaudah-equiano/the-interesting-narrative-of-the-life-of-olaudah-equiano/downloads/cover.jpg"
+    },
+    {
+      "rank": 21,
+      "title": "Persuasion",
+      "author": "Jane Austen",
+      "year": "1817",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/jane-austen/persuasion/downloads/jane-austen_persuasion.epub",
+      "source": "https://standardebooks.org/ebooks/jane-austen/persuasion",
+      "cover": "https://standardebooks.org/ebooks/jane-austen/persuasion/downloads/cover.jpg"
+    },
+    {
+      "rank": 22,
+      "title": "Frankenstein",
+      "author": "Mary Shelley",
+      "year": "1818",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/mary-shelley/frankenstein/downloads/mary-shelley_frankenstein.epub",
+      "source": "https://standardebooks.org/ebooks/mary-shelley/frankenstein",
+      "cover": "https://standardebooks.org/ebooks/mary-shelley/frankenstein/downloads/cover.jpg",
+      "note": "The 1818 text. Gutenberg #84 carries the revised 1831 text."
+    },
+    {
+      "rank": 23,
+      "title": "Don Juan",
+      "author": "Lord Byron",
+      "year": "1819–24",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/lord-byron/don-juan/downloads/lord-byron_don-juan.epub",
+      "source": "https://standardebooks.org/ebooks/lord-byron/don-juan",
+      "cover": "https://standardebooks.org/ebooks/lord-byron/don-juan/downloads/cover.jpg"
+    },
+    {
+      "rank": 24,
+      "title": "Wuthering Heights",
+      "author": "Emily Brontë",
+      "year": "1847",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/emily-bronte/wuthering-heights/downloads/emily-bronte_wuthering-heights.epub",
+      "source": "https://standardebooks.org/ebooks/emily-bronte/wuthering-heights",
+      "cover": "https://standardebooks.org/ebooks/emily-bronte/wuthering-heights/downloads/cover.jpg"
+    },
+    {
+      "rank": 25,
+      "title": "Bleak House",
+      "author": "Charles Dickens",
+      "year": "1852–53",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/charles-dickens/bleak-house/downloads/charles-dickens_bleak-house.epub",
+      "source": "https://standardebooks.org/ebooks/charles-dickens/bleak-house",
+      "cover": "https://standardebooks.org/ebooks/charles-dickens/bleak-house/downloads/cover.jpg"
+    },
+    {
+      "rank": 26,
+      "title": "Alice's Adventures in Wonderland",
+      "author": "Lewis Carroll",
+      "year": "1865",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/lewis-carroll/alices-adventures-in-wonderland/john-tenniel/downloads/lewis-carroll_alices-adventures-in-wonderland_john-tenniel.epub",
+      "source": "https://standardebooks.org/ebooks/lewis-carroll/alices-adventures-in-wonderland/john-tenniel",
+      "cover": "https://standardebooks.org/ebooks/lewis-carroll/alices-adventures-in-wonderland/john-tenniel/downloads/cover.jpg",
+      "note": "With the Tenniel illustrations."
+    },
+    {
+      "rank": 27,
+      "title": "War and Peace",
+      "author": "Leo Tolstoy",
+      "year": "1865–69",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/leo-tolstoy/war-and-peace/louise-maude_aylmer-maude/downloads/leo-tolstoy_war-and-peace_louise-maude_aylmer-maude.epub",
+      "source": "https://standardebooks.org/ebooks/leo-tolstoy/war-and-peace/louise-maude_aylmer-maude",
+      "cover": "https://standardebooks.org/ebooks/leo-tolstoy/war-and-peace/louise-maude_aylmer-maude/downloads/cover.jpg",
+      "note": "The Maude translation. The Telegraph list prints the dates as 1865-57, evidently a typo for 1865-69."
+    },
+    {
+      "rank": 28,
+      "title": "The Ring and the Book",
+      "author": "Robert Browning",
+      "year": "1868",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "txt",
+      "fetch": "https://archive.org/download/ringandbook03unkngoog/ringandbook03unkngoog_djvu.txt",
+      "source": "https://archive.org/details/ringandbook03unkngoog",
+      "cover": "https://archive.org/services/img/ringandbook03unkngoog",
+      "note": "Not on Gutenberg or Standard Ebooks. This is an 1883 public-domain scan, OCR text — expect occasional errors."
+    },
+    {
+      "rank": 29,
+      "title": "Middlemarch",
+      "author": "George Eliot",
+      "year": "1872",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/george-eliot/middlemarch/downloads/george-eliot_middlemarch.epub",
+      "source": "https://standardebooks.org/ebooks/george-eliot/middlemarch",
+      "cover": "https://standardebooks.org/ebooks/george-eliot/middlemarch/downloads/cover.jpg"
+    },
+    {
+      "rank": 30,
+      "title": "The Mayor of Casterbridge",
+      "author": "Thomas Hardy",
+      "year": "1886",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/thomas-hardy/the-mayor-of-casterbridge/downloads/thomas-hardy_the-mayor-of-casterbridge.epub",
+      "source": "https://standardebooks.org/ebooks/thomas-hardy/the-mayor-of-casterbridge",
+      "cover": "https://standardebooks.org/ebooks/thomas-hardy/the-mayor-of-casterbridge/downloads/cover.jpg"
+    },
+    {
+      "rank": 31,
+      "title": "Ulysses",
+      "author": "James Joyce",
+      "year": "1922",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/james-joyce/ulysses/downloads/james-joyce_ulysses.epub",
+      "source": "https://standardebooks.org/ebooks/james-joyce/ulysses",
+      "cover": "https://standardebooks.org/ebooks/james-joyce/ulysses/downloads/cover.jpg"
+    },
+    {
+      "rank": 32,
+      "title": "The Great Gatsby",
+      "author": "F Scott Fitzgerald",
+      "year": "1925",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "public-domain",
+      "kind": "epub",
+      "fetch": "https://standardebooks.org/ebooks/f-scott-fitzgerald/the-great-gatsby/downloads/f-scott-fitzgerald_the-great-gatsby.epub",
+      "source": "https://standardebooks.org/ebooks/f-scott-fitzgerald/the-great-gatsby",
+      "cover": "https://standardebooks.org/ebooks/f-scott-fitzgerald/the-great-gatsby/downloads/cover.jpg",
+      "note": "Entered the US public domain in 2021."
+    },
+    {
+      "rank": 33,
+      "title": "In Parenthesis",
+      "author": "David Jones",
+      "year": "1937",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/inparenthesis0000davi",
+      "cover": "https://archive.org/services/img/inparenthesis0000davi"
+    },
+    {
+      "rank": 34,
+      "title": "Black Lamb and Grey Falcon",
+      "author": "Rebecca West",
+      "year": "1941",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/blacklambgreyfal0000rebe_x7i6",
+      "cover": "https://archive.org/services/img/blacklambgreyfal0000rebe_x7i6"
+    },
+    {
+      "rank": 35,
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "year": "1945",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/animalfarm00orwe",
+      "cover": "https://archive.org/services/img/animalfarm00orwe",
+      "note": "Public domain in the EU and Canada since 2021, still in copyright in the US until 2041."
+    },
+    {
+      "rank": 36,
+      "title": "The Cairo Trilogy",
+      "author": "Naguib Mahfouz",
+      "year": "1956–57",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/palacewalk0000mahf",
+      "cover": "https://archive.org/services/img/palacewalk0000mahf",
+      "note": "Palace Walk, the first volume. Sugar Street and Palace of Desire are separate loans."
+    },
+    {
+      "rank": 37,
+      "title": "I Know Why the Caged Bird Sings",
+      "author": "Maya Angelou",
+      "year": "1969",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/iknowwhycagedbir0000unse_x1z8",
+      "cover": "https://archive.org/services/img/iknowwhycagedbir0000unse_x1z8"
+    },
+    {
+      "rank": 38,
+      "title": "The Hearing Trumpet",
+      "author": "Leonora Carrington",
+      "year": "1974",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/hearingtrumpet0000leon",
+      "cover": "https://archive.org/services/img/hearingtrumpet0000leon"
+    },
+    {
+      "rank": 39,
+      "title": "The Periodic Table",
+      "author": "Primo Levi",
+      "year": "1975",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/periodictable0000levi",
+      "cover": "https://archive.org/services/img/periodictable0000levi",
+      "note": "Raymond Rosenthal's translation."
+    },
+    {
+      "rank": 40,
+      "title": "Omeros",
+      "author": "Derek Walcott",
+      "year": "1990",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/omeros00walc",
+      "cover": "https://archive.org/services/img/omeros00walc"
+    },
+    {
+      "rank": 41,
+      "title": "Persepolis",
+      "author": "Marjane Satrapi",
+      "year": "2000–03",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/persepolis0000satr",
+      "cover": "https://archive.org/services/img/persepolis0000satr",
+      "note": "Volume 1. Persepolis 2 is a separate loan."
+    },
+    {
+      "rank": 42,
+      "title": "Erasure",
+      "author": "Percival Everett",
+      "year": "2001",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/erasure0000perc",
+      "cover": "https://archive.org/services/img/erasure0000perc"
+    },
+    {
+      "rank": 43,
+      "title": "The Smoking Diaries",
+      "author": "Simon Gray",
+      "year": "2004",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/smokingdiaries0000gray",
+      "cover": "https://archive.org/services/img/smokingdiaries0000gray"
+    },
+    {
+      "rank": 44,
+      "title": "The Year of Magical Thinking",
+      "author": "Joan Didion",
+      "year": "2005",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/yearofmagicalthi0000didi_l4p3",
+      "cover": "https://archive.org/services/img/yearofmagicalthi0000didi_l4p3"
+    },
+    {
+      "rank": 45,
+      "title": "The Road",
+      "author": "Cormac McCarthy",
+      "year": "2006",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "in-copyright",
+      "note": "No legitimate free copy found."
+    },
+    {
+      "rank": 46,
+      "title": "Drive Your Plow Over the Bones of the Dead",
+      "author": "Olga Tokarczuk",
+      "year": "2009",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "in-copyright",
+      "note": "No legitimate free copy of the English translation found."
+    },
+    {
+      "rank": 47,
+      "title": "Wolf Hall",
+      "author": "Hilary Mantel",
+      "year": "2009",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/isbn_9781616643652",
+      "cover": "https://archive.org/services/img/isbn_9781616643652"
+    },
+    {
+      "rank": 48,
+      "title": "My Brilliant Friend",
+      "author": "Elena Ferrante",
+      "year": "2011",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "in-copyright",
+      "note": "No legitimate free copy of the English translation found."
+    },
+    {
+      "rank": 49,
+      "title": "The Return: Fathers, Sons and the Land in Between",
+      "author": "Hisham Matar",
+      "year": "2016",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "lending",
+      "source": "https://archive.org/details/returnfathersson0000mata_e6z0",
+      "cover": "https://archive.org/services/img/returnfathersson0000mata_e6z0"
+    },
+    {
+      "rank": 50,
+      "title": "Study for Obedience",
+      "author": "Sarah Bernstein",
+      "year": "2023",
+      "tags": [
+        "Telegraph 50 Best"
+      ],
+      "status": "in-copyright",
+      "note": "No legitimate free copy found."
+    }
+  ]
+}

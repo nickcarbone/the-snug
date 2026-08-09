@@ -197,35 +197,6 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 }
 .empty p{margin:10px 0 0;font-size:13.5px}
 
-/* shelves — a book may sit on several */
-.lib-tools{display:flex;gap:15px;align-items:baseline;flex:none}
-.lib-tools button{color:var(--ink-soft);font-family:var(--mono);font-size:11px;
-  transition:color var(--dur)}
-.lib-tools button:hover{color:var(--accent)}
-.shelves{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
-.chip{
-  border:1px solid var(--hair);border-radius:2px;padding:5px 11px;
-  color:var(--ink-soft);font-family:var(--mono);font-size:11px;
-  transition:color var(--dur),border-color var(--dur),background var(--dur);
-}
-.chip:hover{color:var(--ink);border-color:var(--ink-soft)}
-.chip[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
-.chip .n{opacity:.5;margin-left:7px}
-/* a book whose text hasn't been fetched, or can't be */
-.bk-cov.ghosted{border-style:dashed}
-.bk-cov.ghosted img,.bk-cov.ghosted .ct{opacity:.62}
-.bk-mark{
-  position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:2px;
-  background:var(--shade);color:#fff;font-family:var(--mono);font-size:8.5px;
-  letter-spacing:.05em;text-transform:lowercase;
-}
-.bk-s{
-  position:absolute;top:5px;right:33px;width:24px;height:24px;border-radius:50%;
-  background:var(--shade);color:#fff;font-family:var(--mono);font-size:11px;
-  line-height:24px;text-align:center;opacity:0;transition:opacity var(--dur);
-}
-.bk:hover .bk-s,.bk:focus-within .bk-s{opacity:1}
-
 /* ---------- READER ---------- */
 #reader{background:var(--paper)}
 #stage{position:absolute;inset:0;overflow:hidden;touch-action:pan-y}
@@ -427,9 +398,9 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
         <div class="drop" id="drop">
           <div class="stars">* * *</div>
           <p class="mono" style="margin:12px 0 0">Choose a file or drop it here</p>
-          <p class="hint" style="margin-top:6px">.txt and .epub — or a .json library list</p>
+          <p class="hint" style="margin-top:6px">.txt and .epub</p>
         </div>
-        <input type="file" id="file" accept=".txt,.text,.epub,.noimages,.json,text/plain,application/epub+zip,application/json" hidden>
+        <input type="file" id="file" accept=".txt,.text,.epub,.noimages,text/plain,application/epub+zip" hidden>
       </div>
 
       <div class="tabpane" id="p-paste">
@@ -454,14 +425,8 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
   <div class="lib">
     <div class="lib-head">
       <span class="mono" style="color:var(--ink-soft)">Shelf</span>
-      <span class="lib-tools">
-        <button class="mono" id="lib-import">Import</button>
-        <button class="mono" id="lib-export">Export</button>
-        <button class="mono" id="shelf-theme">Theme</button>
-      </span>
+      <button class="mono" id="shelf-theme" style="color:var(--ink-soft)">Theme</button>
     </div>
-    <input type="file" id="libfile" accept=".json,application/json" hidden>
-    <div class="shelves" id="shelves"></div>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty">
       <div class="stars">* * *</div>
@@ -899,65 +864,21 @@ async function parseEpub(buf){
    5. SHELF / LIBRARY
    ═══════════════════════════════════════════════════════════════ */
 let shelf = LS.get('snug.shelf',[]);
-/* Records written before shelves existed have no tags array. Normalising here
-   rather than at every read site means the rest of the code can assume one. */
-shelf.forEach(b=>{ if(!Array.isArray(b.tags)) b.tags=[]; });
-let filter = LS.get('snug.filter','');
 function saveShelf(){ LS.set('snug.shelf',shelf); }
-function saveFilter(){ LS.set('snug.filter',filter); }
-
-/* A book can sit on any number of shelves; a shelf is just a tag that at least
-   one book carries, so there is nothing to create or delete separately. */
-function allShelves(){
-  const m=new Map();
-  shelf.forEach(b=>(b.tags||[]).forEach(t=>m.set(t,(m.get(t)||0)+1)));
-  return [...m.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
-}
-function onShelf(b){ return !filter || (b.tags||[]).includes(filter); }
-
-function renderShelves(){
-  const box=$('#shelves'), tags=allShelves();
-  /* The last book on a shelf can be removed or retagged out from under the
-     filter, which would otherwise leave the grid permanently empty. */
-  if(filter && !tags.some(([t])=>t===filter)){ filter=''; saveFilter(); }
-  box.innerHTML = tags.length
-    ? `<button class="chip" data-tag="" aria-pressed="${!filter}">All<span class="n">${shelf.length}</span></button>`
-      + tags.map(([t,n])=>
-          `<button class="chip" data-tag="${esc(t)}" aria-pressed="${filter===t}">${esc(t)}<span class="n">${n}</span></button>`
-        ).join('')
-    : '';
-}
 
 function renderShelf(){
-  renderShelves();
-  const g=$('#grid'), e=$('#empty'), books=shelf.filter(onShelf);
+  const g=$('#grid'), e=$('#empty');
   g.innerHTML='';
-  if(!books.length){
-    e.style.display='';
-    e.querySelector('p').textContent = filter
-      ? `Nothing on the “${filter}” shelf yet.`
-      : 'The shelf is empty. Start with something you’ve long intended to read.';
-    return;
-  }
+  if(!shelf.length){ e.style.display=''; return; }
   e.style.display='none';
-  /* Books you've opened come first, most recent at the front. Imported books
-     have never been opened, so they fall back to the order of the list they
-     came from rather than an arbitrary one. */
-  books.slice().sort((a,b)=>
-      (b.opened||0)-(a.opened||0) || (a.rank||1e9)-(b.rank||1e9)
-    ).forEach(b=>{
-    const pct  = Math.round((b.pct||0)*100);
-    const mark = b.status==='in-copyright' ? 'in copyright'
-               : b.status==='lending'      ? 'library loan'
-               : b.pending                 ? 'not fetched' : '';
+  shelf.slice().sort((a,b)=>(b.opened||0)-(a.opened||0)).forEach(b=>{
+    const pct = Math.round((b.pct||0)*100);
     const el=document.createElement('div'); el.className='bk';
     el.innerHTML = `
-      <button class="bk-cov${mark?' ghosted':''}" data-open="${b.id}" aria-label="Open ${esc(b.title)}">
+      <button class="bk-cov" data-open="${b.id}" aria-label="Open ${esc(b.title)}">
         ${b.cover?`<img src="${esc(b.cover)}" alt="" loading="lazy">`:
           `<span class="ct">${esc(b.title)}</span><span class="ca mono">${esc(b.author||'Unknown')}</span>`}
       </button>
-      ${mark?`<span class="bk-mark">${mark}</span>`:''}
-      <button class="bk-s" data-tag-edit="${b.id}" aria-label="Shelves for ${esc(b.title)}" title="Shelves">#</button>
       <button class="bk-x" data-del="${b.id}" aria-label="Remove ${esc(b.title)}">&times;</button>
       <div class="bk-t">${esc(b.title)}</div>
       <div class="bk-a">${esc(b.author||'—')}</div>
@@ -966,79 +887,14 @@ function renderShelf(){
   });
 }
 
-async function addBook({title,author,cover,source,raw,kind,tags}){
+async function addBook({title,author,cover,source,raw,kind}){
   const id=uid();
   const rec={id,title:title||'Untitled',author:author||'',cover:cover||'',
              kind:kind||'txt',source:source||'',added:Date.now(),opened:Date.now(),
-             pct:0,block:0,tags:Array.isArray(tags)?tags.slice():[]};
+             pct:0,block:0};
   await DB.put({id,raw});
   shelf.push(rec); saveShelf(); renderShelf();
   return rec;
-}
-
-/* ── Library import / export ──────────────────────────────────────
-   A library file is metadata only: titles, authors, and where each text can
-   be had. Nothing is downloaded at import time — a book is fetched the first
-   time you open it, so importing fifty books costs one small JSON file. */
-function importLibrary(text, fname){
-  let doc;
-  try{ doc = JSON.parse(text); }
-  catch(err){ return toast('That file is not valid JSON.',4600); }
-  const books = Array.isArray(doc) ? doc : doc.books;
-  if(!Array.isArray(books)) return toast('No list of books in that file.',4600);
-
-  const dflt = String(doc.name || (fname||'').replace(/\.json$/i,'') || 'Imported');
-  const key  = b => ((b.title||'')+'|'+(b.author||'')).toLowerCase().replace(/\s+/g,' ').trim();
-  let added=0, merged=0;
-
-  books.forEach(b=>{
-    const tags = (Array.isArray(b.tags) && b.tags.length) ? b.tags.slice() : [dflt];
-    /* Re-importing shouldn't duplicate a book you already have; it should just
-       put the copy you have onto the new shelf, keeping your reading place. */
-    const have = shelf.find(x=>key(x)===key(b));
-    if(have){
-      tags.forEach(t=>{ if(!have.tags.includes(t)) have.tags.push(t); });
-      merged++; return;
-    }
-    shelf.push({
-      id:uid(), title:b.title||'Untitled', author:b.author||'', cover:b.cover||'',
-      kind:b.kind||'txt', source:b.source||'', added:Date.now(), opened:0,
-      pct:0, block:0, tags,
-      pending:true, fetch:b.fetch||'', status:b.status||'',
-      note:b.note||'', rank:b.rank||0, year:b.year||''
-    });
-    added++;
-  });
-
-  saveShelf();
-  if(allShelves().some(([t])=>t===dflt)){ filter=dflt; saveFilter(); }
-  renderShelf();
-  toast(added
-    ? `${added} added to “${dflt}”${merged?`, ${merged} already here`:''}.`
-    : `Nothing new — ${merged} already on the shelf.`, 5400);
-}
-
-function exportLibrary(){
-  const books = shelf.filter(onShelf);
-  if(!books.length) return toast('Nothing to export.');
-  const doc = {
-    snugLibrary:1,
-    name: filter || 'The Snug',
-    exported: new Date().toISOString().slice(0,10),
-    books: books.map(b=>{
-      const o={ title:b.title, author:b.author, tags:b.tags, kind:b.kind };
-      ['rank','year','status','cover','source','fetch','note']
-        .forEach(k=>{ if(b[k]) o[k]=b[k]; });
-      return o;
-    })
-  };
-  const blob = new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = (doc.name.replace(/[^\w \-]+/g,'').trim().replace(/\s+/g,'-').toLowerCase()
-                || 'snug') + '-library.json';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1236,7 +1092,6 @@ function persist(){
    ═══════════════════════════════════════════════════════════════ */
 async function openBook(id){
   const rec = shelf.find(b=>b.id===id); if(!rec) return toast('That book is no longer stored.');
-  if(rec.pending) return fetchPending(rec);
   busy(true,'Setting the type');
   await new Promise(r=>setTimeout(r,16));
   try{
@@ -1373,44 +1228,8 @@ async function search(q){
   }
 }
 
-/* An imported book holds a source URL where its text would normally be. The
-   file is pulled the first time you open it; after that it is an ordinary
-   book on the shelf, stored on your device like any other. */
-async function fetchPending(rec){
-  if(!rec.fetch){
-    if(rec.source){
-      window.open(rec.source,'_blank','noopener');
-      return toast(rec.status==='lending'
-        ? 'Not downloadable — this one is a library loan. Opening the record.'
-        : 'Still in copyright, so there is no file to fetch. Opening the record.', 5600);
-    }
-    return toast('No source is recorded for that book.',4600);
-  }
-  if(!proxy()){
-    /* Same bind as the Link tab: without a relay the browser can't read another
-       origin's file, but it can still download it. */
-    const a=document.createElement('a'); a.href=rec.fetch; a.rel='noopener';
-    document.body.appendChild(a); a.click(); a.remove();
-    return toast('No relay set, so “'+rec.title+'” is downloading — add it from the File tab.',6400);
-  }
-  busy(true,'Fetching');
-  try{
-    const isEpub = rec.kind==='epub' || /\.epub(\.\w+)?(\?|$)/i.test(rec.fetch);
-    const r = await fetch(viaProxy(rec.fetch));
-    if(!r.ok) throw new Error('the server returned '+r.status);
-    const raw = isEpub ? await r.arrayBuffer() : await r.text();
-    await DB.put({id:rec.id, raw});
-    rec.pending=false; rec.kind = isEpub?'epub':'txt'; rec.opened=Date.now();
-    saveShelf(); busy(false);
-    openBook(rec.id);
-  }catch(err){
-    busy(false);
-    toast('Could not fetch “'+rec.title+'”: '+(err.message||'unknown error')+'.',5600);
-  }
-}
-
 async function fetchBook(url,meta={}){
-  const isEpub=/\.epub(\.\w+)?(\?|$)/i.test(url);
+  const isEpub=/\.epub(\?|$)/i.test(url);
   busy(true,'Fetching');
   try{
     const r = await fetch(viaProxy(url));
@@ -1434,9 +1253,6 @@ async function fetchBook(url,meta={}){
    ═══════════════════════════════════════════════════════════════ */
 async function takeFile(file){
   if(!file) return;
-  /* A dropped .json is a library list, not a book. */
-  if(/\.json$/i.test(file.name) || file.type==='application/json')
-    return importLibrary(await file.text(), file.name);
   busy(true,'Reading the file');
   try{
     /* Sniff the zip signature rather than trusting the extension: files
@@ -1526,36 +1342,12 @@ function init(){
 
   // shelf grid
   $('#grid').addEventListener('click',async e=>{
-    const t=e.target.closest('[data-tag-edit]');
-    if(t){ const b=shelf.find(x=>x.id===t.dataset.tagEdit); if(!b) return;
-      const v=prompt(`Shelves for “${b.title}” — separate them with commas.\nLeave empty to take it off every shelf.`,
-                     (b.tags||[]).join(', '));
-      if(v===null) return;
-      b.tags = v.split(',').map(s=>s.trim()).filter(Boolean);
-      saveShelf(); renderShelf(); return; }
+    const o=e.target.closest('[data-open]'); if(o) return openBook(o.dataset.open);
     const d=e.target.closest('[data-del]');
     if(d){ const b=shelf.find(x=>x.id===d.dataset.del);
       if(b && confirm(`Remove “${b.title}” from the shelf?`)){
-        await DB.del(b.id); shelf=shelf.filter(x=>x.id!==b.id); saveShelf(); renderShelf(); }
-      return; }
-    const o=e.target.closest('[data-open]'); if(o) return openBook(o.dataset.open);
+        await DB.del(b.id); shelf=shelf.filter(x=>x.id!==b.id); saveShelf(); renderShelf(); } }
   });
-
-  // shelves
-  $('#shelves').addEventListener('click',e=>{
-    const c=e.target.closest('.chip'); if(!c) return;
-    filter = c.dataset.tag || ''; saveFilter(); renderShelf();
-  });
-
-  // library import / export
-  const lf=$('#libfile');
-  $('#lib-import').addEventListener('click',()=>lf.click());
-  lf.addEventListener('change',async e=>{
-    const f=e.target.files[0]; lf.value='';
-    if(f) importLibrary(await f.text(), f.name);
-  });
-  $('#lib-export').addEventListener('click',exportLibrary);
-
   $('#shelf-theme').addEventListener('click',()=>{
     const order=['paper','sepia','slate','night'];
     S.theme = order[(order.indexOf(S.theme)+1)%order.length];
