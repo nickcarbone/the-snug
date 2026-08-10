@@ -74,6 +74,20 @@ Books that haven't been fetched yet show a dashed cover and a small label.
 Tapping one fetches it through your relay; without a relay it downloads instead,
 and you add it from the **File** tab as usual.
 
+**Fetch** — next to Import, and only there when something on the current shelf
+is waiting — pulls all of them in one go. It works through the list one book at
+a time, a quarter-second apart, because these files come off other people's
+servers and a burst of parallel requests is a poor way to treat them. The count
+on the button is the progress; pressing it again stops. Anything that fails
+stays pending, so pressing **Fetch** again retries only what's left. The shelf
+stays usable while it runs, and it needs a relay — there is no way to bulk-fetch
+without one.
+
+Bear in mind what you're asking for: fetching thirty-odd books at once means
+holding thirty-odd books in memory as well as in storage. *Pepys* and *Gibbon*
+alone are a few megabytes each. It's fine on a laptop; on an old phone, fetch
+the shelf in stages.
+
 Re-importing the same list does not duplicate anything. A book you already have
 keeps its reading position and simply joins the new shelf.
 

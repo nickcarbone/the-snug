@@ -172,6 +172,9 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
 }
 .bk{text-align:left;display:block;position:relative}
 .bk-cov{
+  /* width:100% — a button shrinks to its content, and a cover image is
+     absolutely positioned, so without this the card collapses to its padding. */
+  width:100%;
   aspect-ratio:2/3;background:var(--surface);border:1px solid var(--hair);border-radius:2px;
   display:flex;flex-direction:column;justify-content:space-between;padding:13px 11px;
   overflow:hidden;position:relative;transition:transform var(--dur) ease;
@@ -455,6 +458,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--accent)}
     <div class="lib-head">
       <span class="mono" style="color:var(--ink-soft)">Shelf</span>
       <span class="lib-tools">
+        <button class="mono" id="lib-fetch" hidden>Fetch</button>
         <button class="mono" id="lib-import">Import</button>
         <button class="mono" id="lib-export">Export</button>
         <button class="mono" id="shelf-theme">Theme</button>
@@ -964,6 +968,52 @@ function renderShelf(){
       <div class="bk-bar"><i style="width:${pct}%"></i></div>`;
     g.appendChild(el);
   });
+  updateFetchBtn();
+}
+
+/* ── Fetching a whole shelf ───────────────────────────────────────
+   One book at a time rather than fifty at once: the files come from other
+   people's servers, and a burst of parallel requests is a poor way to treat
+   them. The shelf stays usable throughout and the button stops it. */
+let fetching = false;
+function pendingOnShelf(){ return shelf.filter(b=>onShelf(b) && b.pending && b.fetch); }
+function updateFetchBtn(){
+  const btn=$('#lib-fetch'); if(!btn || fetching) return;
+  const n=pendingOnShelf().length;
+  btn.hidden = !n;
+  btn.textContent = n>1 ? `Fetch ${n}` : 'Fetch';
+}
+async function fetchShelf(){
+  if(fetching){ fetching=false; return; }   /* a second press stops it */
+  const queue = pendingOnShelf();
+  if(!queue.length) return toast('Nothing left to fetch on this shelf.');
+  if(!proxy()) return toast('Fetching a whole shelf needs a relay. Without one, open books individually and add them from the File tab.',7000);
+
+  fetching = true;
+  const btn=$('#lib-fetch');
+  let got=0; const failed=[];
+  for(let i=0;i<queue.length;i++){
+    if(!fetching) break;
+    const rec=queue[i];
+    btn.textContent = `Stop ${i+1}/${queue.length}`;
+    try{
+      const isEpub = rec.kind==='epub' || /\.epub(\.\w+)?(\?|$)/i.test(rec.fetch);
+      const r = await fetch(viaProxy(rec.fetch));
+      if(!r.ok) throw new Error('the server returned '+r.status);
+      const raw = isEpub ? await r.arrayBuffer() : await r.text();
+      await DB.put({id:rec.id, raw});
+      rec.pending=false; rec.kind = isEpub?'epub':'txt';
+      got++;
+    }catch(err){ failed.push(rec.title); }
+    saveShelf(); renderShelf();
+    if(fetching && i<queue.length-1) await new Promise(r=>setTimeout(r,250));
+  }
+  const stopped = !fetching;
+  fetching = false; updateFetchBtn();
+  const head = (stopped?'Stopped. ':'') + got + (got===1?' book':' books') + ' fetched';
+  toast(failed.length
+    ? `${head}. ${failed.length} failed: ${failed.slice(0,3).join(', ')}${failed.length>3?'…':''}`
+    : head + '.', failed.length ? 7600 : 3600);
 }
 
 async function addBook({title,author,cover,source,raw,kind,tags}){
@@ -1549,6 +1599,7 @@ function init(){
 
   // library import / export
   const lf=$('#libfile');
+  $('#lib-fetch').addEventListener('click',fetchShelf);
   $('#lib-import').addEventListener('click',()=>lf.click());
   lf.addEventListener('change',async e=>{
     const f=e.target.files[0]; lf.value='';
